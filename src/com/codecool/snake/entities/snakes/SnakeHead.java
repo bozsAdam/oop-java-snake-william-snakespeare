@@ -17,7 +17,11 @@ public class SnakeHead extends GameEntity implements Interactable {
 
     public SnakeHead(Snake snake, Vec2d position) {
         this.snake = snake;
-        setImage(Globals.getInstance().getImage("SnakeHead"));
+        if (snake.getPlayerId() == 1) {
+            setImage(Globals.getInstance().getImage("SnakeHead"));
+        } else {
+            setImage(Globals.getInstance().getImage("SnakeHead2"));
+        }
         setPosition(position);
     }
 

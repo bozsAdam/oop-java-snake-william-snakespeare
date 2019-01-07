@@ -11,14 +11,22 @@ import javafx.scene.input.KeyCode;
 
 
 public class Snake implements Animatable {
+    private static int snakeCount = 0;
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    private int playerId;
     private static final float speed = 2;
     private int health = 100;
-
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
 
 
     public Snake(Vec2d position) {
+        snakeCount ++;
+        playerId = snakeCount;
         head = new SnakeHead(this, position);
         body = new DelayedModificationList<>();
 
@@ -37,8 +45,13 @@ public class Snake implements Animatable {
 
     private SnakeControl getUserInput() {
         SnakeControl turnDir = SnakeControl.INVALID;
-        if(InputHandler.getInstance().isKeyPressed(KeyCode.LEFT)) turnDir = SnakeControl.TURN_LEFT;
-        if(InputHandler.getInstance().isKeyPressed(KeyCode.RIGHT)) turnDir = SnakeControl.TURN_RIGHT;
+        if (playerId == 1) {
+            if (InputHandler.getInstance().isKeyPressed(KeyCode.LEFT)) turnDir = SnakeControl.TURN_LEFT;
+            if (InputHandler.getInstance().isKeyPressed(KeyCode.RIGHT)) turnDir = SnakeControl.TURN_RIGHT;
+        } else if (playerId == 2) {
+            if (InputHandler.getInstance().isKeyPressed(KeyCode.A)) turnDir = SnakeControl.TURN_LEFT;
+            if (InputHandler.getInstance().isKeyPressed(KeyCode.D)) turnDir = SnakeControl.TURN_RIGHT;
+        }
         return turnDir;
     }
 
@@ -47,7 +60,7 @@ public class Snake implements Animatable {
         Vec2d position = parent.getPosition();
 
         for (int i = 0; i < numParts; i++) {
-            SnakeBody newBodyPart = new SnakeBody(position);
+            SnakeBody newBodyPart = new SnakeBody(position, this);
             body.add(newBodyPart);
         }
         Globals.getInstance().display.updateSnakeHeadDrawPosition(head);

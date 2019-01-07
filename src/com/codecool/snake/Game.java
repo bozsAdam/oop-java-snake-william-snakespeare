@@ -9,26 +9,33 @@ import com.sun.javafx.geom.Vec2d;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Game extends Pane {
-    private Snake snake = null;
+    private int numberOfPlayers;
+    private List<Snake> snakes = new ArrayList<>();
     private GameTimer gameTimer = new GameTimer();
 
-
-    public Game() {
+    public Game(int numberOfPlayers) {
         Globals.getInstance().game = this;
         Globals.getInstance().display = new Display(this);
         Globals.getInstance().setupResources();
+        this.numberOfPlayers = numberOfPlayers;
+        startEventListener();
+    }
 
+    private void startEventListener () {
+        // ha start lett akkor:
         init();
     }
 
     public void init() {
         spawnSnake();
-        spawnEnemies(4);
-        spawnPowerUps(4);
-
-        GameLoop gameLoop = new GameLoop(snake);
+        spawnEnemies(44);
+        spawnPowerUps(44);
+        GameLoop gameLoop = new GameLoop(snakes);
         Globals.getInstance().setGameLoop(gameLoop);
         gameTimer.setup(gameLoop::step);
         gameTimer.play();
@@ -40,7 +47,9 @@ public class Game extends Pane {
     }
 
     private void spawnSnake() {
-        snake = new Snake(new Vec2d(500, 500));
+        for (int i = 0; i < numberOfPlayers; i++) {
+            snakes.add(new Snake(new Vec2d(500, 500 + i*-200)));
+        }
     }
 
     private void spawnEnemies(int numberOfEnemies) {
