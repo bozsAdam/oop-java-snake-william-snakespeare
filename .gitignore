@@ -18,9 +18,15 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 
+
+
 # Gradle:
 .idea/**/gradle.xml
 .idea/**/libraries
+.idea/vcs.xml
+.idea/encodings.xml
+
+
 
 # CMake
 cmake-build-debug/
