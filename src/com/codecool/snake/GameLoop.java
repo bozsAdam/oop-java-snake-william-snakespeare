@@ -42,8 +42,7 @@ public class GameLoop {
                 }
             }
             checkCollisions();
-            if(deadSnakeCount >= snakes.size()) {
-                System.out.println("Alldead");
+            if(deadSnakeCount == snakes.size()) {
                 Globals.getInstance().stopGame();
             }
 
