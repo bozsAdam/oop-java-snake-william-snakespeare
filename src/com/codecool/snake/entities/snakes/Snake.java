@@ -20,6 +20,11 @@ public class Snake implements Animatable {
     private int playerId;
     private static final float speed = 2;
     private int health = 100;
+
+    public SnakeHead getHead() {
+        return head;
+    }
+
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
 
