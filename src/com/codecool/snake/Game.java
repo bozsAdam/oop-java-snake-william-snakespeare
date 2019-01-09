@@ -93,6 +93,10 @@ public class Game extends Pane {
         new SkullEnemy(snakes);
     }
 
+    static void randomlySpawnSimplePowerUp () {
+        new SimplePowerUp();
+    }
+
     private void spawnPowerUps(int numberOfPowerUps) {
         for(int i = 0; i < numberOfPowerUps; ++i) new SimplePowerUp();
     }

@@ -16,6 +16,7 @@ public class GameLoop {
     private int stepsToSpawnBomb = (int) Math.random()*150+150;
     private int stepsToSpawnSkull = (int) Math.random()*150+150;
     private int stepsToSpawnSimple = (int) Math.random()*100+50;
+    private int stepsToSpawnSimplePowerUp = (int) Math.random()*200+500;
 
     public GameLoop(List<Snake> snakes) { this.snakes = snakes; }
 
@@ -57,6 +58,9 @@ public class GameLoop {
             }
             if (steps % stepsToSpawnSimple == 0) {
                 Game.randomlySpawnSimpleEnemy();
+            }
+            if (steps % stepsToSpawnSimplePowerUp == 0) {
+                Game.randomlySpawnSimplePowerUp();
             }
             steps++;
 
