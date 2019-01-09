@@ -21,6 +21,7 @@ public class Snake implements Animatable {
     private boolean superCharged = false;
     private Integer chargeDelay = 0;
     private Integer superChargeDelay = 0;
+    private String bodyImage;
 
     public int getPlayerId() {
         return playerId;
@@ -30,12 +31,14 @@ public class Snake implements Animatable {
         return head;
     }
 
-    public Snake(Vec2d position) {
+    public Snake(Vec2d position, Control control, String bodyImage) {
         snakeCount ++;
         playerId = snakeCount;
         head = new SnakeHead(this, position);
         body = new DelayedModificationList<>();
         this.isDead = false;
+        this.control = control;
+        this.bodyImage = bodyImage;
         addPart(4);
     }
 
@@ -128,4 +131,14 @@ public class Snake implements Animatable {
             bodypart.destroy();
         }
     }
+
+    public String getBodyImage() {
+        return bodyImage;
+    }
+
+    public void setBodyImage(String bodyImage) {
+        this.bodyImage = bodyImage;
+    }
+
+
 }
