@@ -20,7 +20,7 @@ public class SkullEnemy extends Enemy implements Animatable, Interactable {
     private Point2D heading;
     private static Random rnd = new Random();
     private SnakeHead snakeHead;
-    private int stepsToDie = 2000;
+    private int stepsToDie = 400;
 
     public SkullEnemy(List<Snake> snakes) {
         super(20);
