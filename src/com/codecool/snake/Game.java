@@ -3,6 +3,8 @@ package com.codecool.snake;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.SimplePowerUp;
 import com.codecool.snake.entities.snakes.Snake;
+import com.codecool.snake.entities.snakes.SnakeHead;
+import com.codecool.snake.entities.snakes.SnakeLaser;
 import com.codecool.snake.eventhandler.InputHandler;
 
 import com.sun.javafx.geom.Vec2d;
@@ -27,8 +29,8 @@ public class Game extends Pane {
         Globals.getInstance().display = new Display(this);
         Globals.getInstance().setupResources();
         this.numberOfPlayers = numberOfPlayers;
-        controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT));
-        controls.put("Player2", new Control(KeyCode.A, KeyCode.D));
+        controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.K.SPACE));
+        controls.put("Player2", new Control(KeyCode.A, KeyCode.D, KeyCode.Q));
         startEventListener();
     }
 
@@ -59,6 +61,10 @@ public class Game extends Pane {
             snake.setControl(controls.get(playerId));
             snakes.add(snake);
         }
+    }
+
+    public void spawnLaser(int numberOfLaser,SnakeHead snakeHead) {
+        for(int i = 0; i < numberOfLaser; ++i) new SnakeLaser(snakeHead);
     }
 
     private void spawnEnemies(int numberOfEnemies) {

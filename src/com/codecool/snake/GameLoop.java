@@ -10,7 +10,6 @@ import java.util.List;
 
 public class GameLoop {
     private Snake snake;
-    //private Snake snake2;
     private List<Snake> snakes = new ArrayList<>();
     private boolean running = false;
 

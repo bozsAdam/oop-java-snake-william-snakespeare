@@ -8,6 +8,7 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.eventhandler.InputHandler;
 
 import com.sun.javafx.geom.Vec2d;
+import javafx.scene.input.KeyCode;
 
 
 public class Snake implements Animatable {
@@ -19,9 +20,16 @@ public class Snake implements Animatable {
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
     private boolean isDead;
+    private boolean charged = true;
+    private boolean superCharged = false;
+    private Integer chargeDelay = 0;
+    private Integer superChargeDelay = 0;
 
     public int getPlayerId() {
         return playerId;
+    }
+    public SnakeHead getHead() {
+        return head;
     }
 
     public Snake(Vec2d position) {
@@ -57,6 +65,11 @@ public class Snake implements Animatable {
         SnakeControl turnDir = SnakeControl.INVALID;
         if (InputHandler.getInstance().isKeyPressed(control.getLeftControl())) turnDir = SnakeControl.TURN_LEFT;
         if (InputHandler.getInstance().isKeyPressed(control.getRightControl())) turnDir = SnakeControl.TURN_RIGHT;
+        if(InputHandler.getInstance().isKeyPressed(control.getShootControl())){
+            shoot();
+        }
+        readyCheck();
+        chargeDelay++;
         return turnDir;
     }
 
@@ -96,6 +109,20 @@ public class Snake implements Animatable {
 
         if(result != null) return result;
         return head;
+    }
+
+    private void shoot(){
+        if(charged){
+            new SnakeLaser(getHead());
+            charged = false;
+            chargeDelay = 0;
+        }
+    }
+
+    private void readyCheck(){
+        if(chargeDelay>100){
+            charged = true;
+        }
     }
 
     public void setControl(Control control) {

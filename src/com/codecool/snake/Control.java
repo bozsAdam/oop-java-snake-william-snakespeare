@@ -7,12 +7,14 @@ public class Control {
     private String name;
     private KeyCode leftControl;
     private KeyCode rightControl;
+    private KeyCode shootControl;
 
-    public Control(KeyCode leftControl, KeyCode rightControl) {
+    public Control(KeyCode leftControl, KeyCode rightControl, KeyCode shootControl) {
         controlCount++;
         this.name = "Player" + controlCount;
         this.leftControl = leftControl;
         this.rightControl = rightControl;
+        this.shootControl = shootControl;
     }
 
     public KeyCode getLeftControl() {
@@ -21,5 +23,9 @@ public class Control {
 
     public KeyCode getRightControl() {
         return rightControl;
+    }
+
+    public KeyCode getShootControl() {
+        return shootControl;
     }
 }
