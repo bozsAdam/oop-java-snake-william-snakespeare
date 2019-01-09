@@ -43,8 +43,8 @@ public class Game extends Pane {
 
     public void init() {
         spawnSnake();
-        spawnEnemies(1);
-        spawnPowerUps(0);
+        spawnEnemies(20);
+        spawnPowerUps(20);
         GameLoop gameLoop = new GameLoop(snakes);
         Globals.getInstance().setGameLoop(gameLoop);
         gameTimer.setup(gameLoop::step);
@@ -77,7 +77,7 @@ public class Game extends Pane {
                 new SkullEnemy(snakes);
             }
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             new BombEnemy();
         }
     }
