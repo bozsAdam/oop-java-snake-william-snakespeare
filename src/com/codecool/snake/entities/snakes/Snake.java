@@ -1,13 +1,32 @@
 package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.DelayedModificationList;
+import com.codecool.snake.Game;
 import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.eventhandler.InputHandler;
+import com.sun.javafx.geom.Vec2d;
 
 import com.sun.javafx.geom.Vec2d;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
+
 import javafx.scene.input.KeyCode;
+
+import java.util.Optional;
 
 
 public class Snake implements Animatable {
@@ -23,6 +42,14 @@ public class Snake implements Animatable {
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
 
+
+    public SnakeHead getHead() {
+        return head;
+    }
+
+    public DelayedModificationList<GameEntity> getBody() {
+        return body;
+    }
 
     public Snake(Vec2d position) {
         snakeCount ++;
@@ -70,9 +97,18 @@ public class Snake implements Animatable {
         health += diff;
     }
 
-    private void checkForGameOverConditions() {
+    public void checkForGameOverConditions() {
         if (head.isOutOfBounds() || health <= 0) {
-            System.out.println("Game Over");
+
+            ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do you want to start a new game?", yes, no);
+            alert.setHeaderText("Game Over");
+            Platform.runLater(() -> {
+                Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == yes) {
+                // RESTART
+            }});
             Globals.getInstance().stopGame();
         }
     }
