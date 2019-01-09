@@ -8,31 +8,28 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.eventhandler.InputHandler;
 
 import com.sun.javafx.geom.Vec2d;
-import javafx.scene.input.KeyCode;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Snake implements Animatable {
     private static int snakeCount = 0;
     private Control control;
-    public int getPlayerId() {
-        return playerId;
-    }
-
     private int playerId;
     private static final float speed = 2;
     private int health = 100;
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
+    private boolean isDead;
 
+    public int getPlayerId() {
+        return playerId;
+    }
 
     public Snake(Vec2d position) {
         snakeCount ++;
         playerId = snakeCount;
         head = new SnakeHead(this, position);
         body = new DelayedModificationList<>();
+        this.isDead = false;
 
         addPart(4);
     }
@@ -42,7 +39,7 @@ public class Snake implements Animatable {
         head.updateRotation(turnDir, speed);
 
         updateSnakeBodyHistory();
-        checkForGameOverConditions();
+        checkForSnakeCondition();
 
         body.doPendingModifications();
     }
@@ -78,10 +75,11 @@ public class Snake implements Animatable {
         health += diff;
     }
 
-    private void checkForGameOverConditions() {
-        if (head.isOutOfBounds() || health <= 0) {
-            System.out.println("Game Over");
-            Globals.getInstance().stopGame();
+    private void checkForSnakeCondition() {
+        if (this.head.isOutOfBounds() || health <= 0) {
+            System.out.println("Im ded");
+            this.setDead(true);
+//            Globals.getInstance().stopGame();
         }
     }
 
@@ -102,5 +100,21 @@ public class Snake implements Animatable {
 
     public void setControl(Control control) {
         this.control = control;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void destroy() {
+        this.head.destroy();
+        for (GameEntity bodypart: this.body.getList()
+        ) {
+            bodypart.destroy();
+        }
     }
 }
