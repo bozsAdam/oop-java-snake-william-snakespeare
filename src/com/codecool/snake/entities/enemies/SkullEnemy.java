@@ -7,6 +7,7 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.snakes.Snake;
 import com.codecool.snake.entities.snakes.SnakeHead;
+import com.codecool.snake.entities.snakes.SnakeLaser;
 import com.sun.javafx.geom.Vec2d;
 import javafx.geometry.Point2D;
 
@@ -27,8 +28,6 @@ public class SkullEnemy extends Enemy implements Animatable, Interactable {
         setImage(Globals.getInstance().getImage("SkullEnemy"));
         setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
         setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
-        setX(Globals.WINDOW_WIDTH/2);
-        setY(Globals.WINDOW_HEIGHT/2+300);
         heading = getHeading ();
     }
 
@@ -65,7 +64,7 @@ public class SkullEnemy extends Enemy implements Animatable, Interactable {
 
     @Override
     public void apply(GameEntity entity) {
-        if(entity instanceof SnakeHead){
+        if(entity instanceof SnakeHead || entity instanceof SnakeLaser){
             System.out.println(getMessage());
             destroy();
         }

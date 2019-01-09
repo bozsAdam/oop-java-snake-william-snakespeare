@@ -10,7 +10,6 @@ import java.util.List;
 
 public class GameLoop {
     private Snake snake;
-    //private Snake snake2;
     private List<Snake> snakes = new ArrayList<>();
     private boolean running = false;
 
@@ -26,7 +25,16 @@ public class GameLoop {
 
     public void step() {
         if(running) {
-            snakes.forEach(Snake::step);
+            int deadSnakeCount = 0;
+            for (Snake snake: snakes
+                 ) {
+                if(!snake.isDead()) {
+                    snake.step();
+                } else {
+                    deadSnakeCount++;
+                    snake.destroy();
+                }
+            };
             //snake2.step();
             for (GameEntity gameObject : Globals.getInstance().display.getObjectList()) {
                 if (gameObject instanceof Animatable) {
@@ -34,6 +42,11 @@ public class GameLoop {
                 }
             }
             checkCollisions();
+            if(deadSnakeCount >= snakes.size()) {
+                System.out.println("Alldead");
+                Globals.getInstance().stopGame();
+            }
+
         }
 
         Globals.getInstance().display.frameFinished();

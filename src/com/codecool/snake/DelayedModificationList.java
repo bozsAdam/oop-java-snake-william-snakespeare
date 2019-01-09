@@ -1,5 +1,8 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.snakes.SnakeBody;
+
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,4 +64,12 @@ public class DelayedModificationList<T> {
         newObjects.clear();
         oldObjects.clear();
     }
+
+    @Override
+    public String toString() {
+        return "newobjects:" + Arrays.toString(newObjects.toArray()) + " oldobjects:" + Arrays.toString(oldObjects.toArray()) + " objexts:" + Arrays.toString(objects.toArray());
+    }
+
+
+
 }

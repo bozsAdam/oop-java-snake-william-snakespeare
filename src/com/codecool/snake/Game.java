@@ -4,26 +4,34 @@ import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.enemies.SkullEnemy;
 import com.codecool.snake.entities.powerups.SimplePowerUp;
 import com.codecool.snake.entities.snakes.Snake;
+import com.codecool.snake.entities.snakes.SnakeHead;
+import com.codecool.snake.entities.snakes.SnakeLaser;
 import com.codecool.snake.eventhandler.InputHandler;
 
 import com.sun.javafx.geom.Vec2d;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Game extends Pane {
     private int numberOfPlayers;
     private List<Snake> snakes = new ArrayList<>();
     private GameTimer gameTimer = new GameTimer();
+    private Map<String, Control> controls = new HashMap<>();
 
     public Game(int numberOfPlayers) {
         Globals.getInstance().game = this;
         Globals.getInstance().display = new Display(this);
         Globals.getInstance().setupResources();
         this.numberOfPlayers = numberOfPlayers;
+        controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.K.SPACE));
+        controls.put("Player2", new Control(KeyCode.A, KeyCode.D, KeyCode.Q));
         startEventListener();
     }
 
@@ -34,8 +42,8 @@ public class Game extends Pane {
 
     public void init() {
         spawnSnake();
-        spawnEnemies(2);
-        spawnPowerUps(4);
+        spawnEnemies(44);
+        spawnPowerUps(44);
         GameLoop gameLoop = new GameLoop(snakes);
         Globals.getInstance().setGameLoop(gameLoop);
         gameTimer.setup(gameLoop::step);
@@ -49,8 +57,15 @@ public class Game extends Pane {
 
     private void spawnSnake() {
         for (int i = 0; i < numberOfPlayers; i++) {
-            snakes.add(new Snake(new Vec2d(500, 500 + i*-200)));
+            Snake snake = new Snake(new Vec2d(500, 500 + i*-200));
+            String playerId = "Player" + (i + 1);
+            snake.setControl(controls.get(playerId));
+            snakes.add(snake);
         }
+    }
+
+    public void spawnLaser(int numberOfLaser,SnakeHead snakeHead) {
+        for(int i = 0; i < numberOfLaser; ++i) new SnakeLaser(snakeHead);
     }
 
     private void spawnEnemies(int numberOfEnemies) {
