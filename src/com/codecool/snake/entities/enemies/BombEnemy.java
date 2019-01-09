@@ -34,7 +34,7 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
 
     @Override
     public void step() {
-        if (isOutOfBounds()) {
+        if (isOutOfBounds() && !isExploded) {
             destroy();
         }
         if (stepsToExplode == 0 && !isExploded ) {
@@ -53,9 +53,9 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
     }
 
     private void explode () {
-        setImage(Globals.getInstance().getImage("BombExplosion"));
         setX(getX() - 100);
         setY(getY() - 90);
+        setImage(Globals.getInstance().getImage("BombExplosion"));
         isExploded = true;
         this.setOpacity(0.8);
     }

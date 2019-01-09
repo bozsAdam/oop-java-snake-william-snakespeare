@@ -14,10 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Game extends Pane {
@@ -82,6 +79,10 @@ public class Game extends Pane {
         for (int i = 0; i < 3; i++) {
             new BombEnemy();
         }
+    }
+
+    static void randomlySpawnBomb () {
+        new BombEnemy();
     }
 
     private void spawnPowerUps(int numberOfPowerUps) {

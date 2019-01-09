@@ -12,6 +12,8 @@ public class GameLoop {
     private Snake snake;
     private List<Snake> snakes = new ArrayList<>();
     private boolean running = false;
+    private int steps = 1;
+    private int stepsToSpawnBomb = (int) Math.random()*150+150;
 
     public GameLoop(List<Snake> snakes) { this.snakes = snakes; }
 
@@ -45,9 +47,12 @@ public class GameLoop {
             if(deadSnakeCount == snakes.size()) {
                 Globals.getInstance().stopGame();
             }
+            if (steps % stepsToSpawnBomb == 0) {
+                Game.randomlySpawnBomb();
+            }
+            steps++;
 
         }
-
         Globals.getInstance().display.frameFinished();
     }
 
