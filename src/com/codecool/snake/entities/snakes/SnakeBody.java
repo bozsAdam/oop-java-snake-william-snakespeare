@@ -33,4 +33,7 @@ public class SnakeBody extends GameEntity {
         setY(currentPos.y);
         history.add(pos); // add the parent's current position to the beginning of the history
     }
+
+
+
 }
