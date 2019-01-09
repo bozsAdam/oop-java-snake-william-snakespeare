@@ -37,11 +37,12 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
         if (isOutOfBounds()) {
             destroy();
         }
-        if (stepsToExplode == 0) {
+        if (stepsToExplode == 0 && !isExploded ) {
             explode();
-        } else if (stepsToExplode < 0) {
+        }
+        if (isExploded) {
             stepsToDie--;
-            }
+        }
         if (stepsToDie == 0) {
             destroy();
         }
