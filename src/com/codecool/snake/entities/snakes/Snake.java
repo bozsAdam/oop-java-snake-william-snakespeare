@@ -25,6 +25,8 @@ public class Snake implements Animatable {
     private String bodyImage;
     private String headImage;
     private String laserImage;
+    double imageHeight;
+    double imageWidth;
 
     public int getPlayerId() {
         return playerId;
@@ -45,6 +47,8 @@ public class Snake implements Animatable {
         head = new SnakeHead(this, position);
         body = new DelayedModificationList<>();
         addPart(4);
+        this.imageHeight = Globals.getInstance().getImage(getHeadImage()).getHeight();
+        this.imageWidth = Globals.getInstance().getImage(getHeadImage()).getWidth();
     }
 
     public void step() {
@@ -83,7 +87,7 @@ public class Snake implements Animatable {
     }
 
     private void checkForSnakeCondition() {
-        if (this.head.isOutOfBounds() || health <= 0) {
+        if (this.head.isOutOfBounds(imageHeight, imageWidth) || health <= 0) {
             System.out.println("Im ded");
             this.health = 0;
         }

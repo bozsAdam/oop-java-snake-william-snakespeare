@@ -13,10 +13,14 @@ public class SnakeLaser extends GameEntity implements Animatable, Interactable {
 
     private Point2D heading;
     private SnakeHead snakeHead;
+    double imageHeight;
+    double imageWidth;
 
     public SnakeLaser(Snake snake) {
         this.snakeHead = snake.getHead();
         setImage(Globals.getInstance().getImage(snake.getLaserImage()));
+        this.imageHeight = Globals.getInstance().getImage(snake.getLaserImage()).getHeight();
+        this.imageWidth = Globals.getInstance().getImage(snake.getLaserImage()).getWidth();
         setX(snakeHead.getX());
         setY(snakeHead.getY());
         setRotate(snakeHead.getRotate());
@@ -26,7 +30,7 @@ public class SnakeLaser extends GameEntity implements Animatable, Interactable {
 
     @Override
     public void step() {
-        if (isOutOfBounds()) {
+        if (isOutOfBounds(imageHeight, imageWidth)) {
             destroy();
         }
         setX(getX() + heading.getX());

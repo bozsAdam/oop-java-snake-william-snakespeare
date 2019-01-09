@@ -17,13 +17,10 @@ public class SimpleEnemy extends Enemy implements Animatable {
 
     private Point2D heading;
     private static Random rnd = new Random();
+    private static String image = "SimpleEnemy";
 
     public SimpleEnemy() {
-        super(10);
-
-        setImage(Globals.getInstance().getImage("SimpleEnemy"));
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        super(10, image);
 
         double direction = rnd.nextDouble() * 360;
         setRotate(direction);
@@ -34,7 +31,7 @@ public class SimpleEnemy extends Enemy implements Animatable {
 
     @Override
     public void step() {
-        if (isOutOfBounds()) {
+        if (isOutOfBounds(super.imageHeight, super.imageWidth)) {
             destroy();
         }
         setX(getX() + heading.getX());
