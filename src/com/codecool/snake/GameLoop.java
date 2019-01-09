@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameLoop {
-    private Snake snake;
-    private List<Snake> snakes = new ArrayList<>();
+    private List<Snake> snakes;
     private boolean running = false;
     private int steps = 1;
     private int stepsToSpawnBomb = (int) Math.random()*150+150;
