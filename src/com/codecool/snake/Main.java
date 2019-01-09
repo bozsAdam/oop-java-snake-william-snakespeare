@@ -12,15 +12,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Game game = new Game(1);
-        Scene mainScene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
+        Menu menu = new Menu(primaryStage);
+        menu.menuPopUp();
 
-        game.restartButton();
-        primaryStage.setTitle("Snake Game");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-
-        game.start();
     }
 
     @Override
