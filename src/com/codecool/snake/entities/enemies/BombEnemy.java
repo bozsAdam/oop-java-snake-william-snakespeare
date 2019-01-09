@@ -19,13 +19,10 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
     private int stepsToExplode = 200;
     private boolean isExploded = false;
     private boolean isDamaged = false;
+    private static String image = "BombEnemy";
 
     public BombEnemy() {
-        super(50);
-
-        setImage(Globals.getInstance().getImage("BombEnemy"));
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        super(50, image);
 
         double direction = 360;
         setRotate(direction);
@@ -34,7 +31,7 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
 
     @Override
     public void step() {
-        if (isOutOfBounds() && !isExploded) {
+        if (isOutOfBounds(super.imageHeight, super.imageWidth) && !isExploded) {
             destroy();
         }
         if (stepsToExplode == 0 && !isExploded ) {

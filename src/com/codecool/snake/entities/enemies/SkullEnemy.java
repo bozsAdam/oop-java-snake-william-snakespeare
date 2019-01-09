@@ -22,19 +22,17 @@ public class SkullEnemy extends Enemy implements Animatable {
     private SnakeHead snakeHead;
     private int stepsToDie = 400;
     private boolean isJustCreated = true;
+    private static String image = "SkullEnemy";
 
     public SkullEnemy(List<Snake> snakes) {
-        super(20);
+        super(20, image);
         snakeHead = snakes.get((int)(Math.random()*snakes.size())).getHead();
-        setImage(Globals.getInstance().getImage("SkullEnemy"));
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
         heading = getHeading ();
     }
 
     @Override
     public void step() {
-        if (isOutOfBounds()) {
+        if (isOutOfBounds(super.imageHeight, super.imageWidth)) {
             destroy();
         }
 
