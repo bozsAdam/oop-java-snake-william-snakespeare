@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class GameLoop {
-    private Snake snake;
-    private List<Snake> snakes = new ArrayList<>();
+public class GameLoop extends Menu {
+    private List<Snake> snakes;
     private boolean running = false;
+    private int steps = 1;
+    private int stepsToSpawnBomb = (int) Math.random()*150+150;
+    private int stepsToSpawnSkull = (int) Math.random()*150+150;
+    private int stepsToSpawnSimple = (int) Math.random()*100+50;
+    private int stepsToSpawnSimplePowerUp = (int) Math.random()*200+500;
 
     public GameLoop(List<Snake> snakes) { this.snakes = snakes; }
 
@@ -47,14 +51,25 @@ public class GameLoop {
                 }
             }
             checkCollisions();
-            if(deadSnakeCount >= snakes.size()) {
-                System.out.println("Alldead");
-                gameOver();
+            if(deadSnakeCount == snakes.size()) {
                 Globals.getInstance().stopGame();
+                gameOver();
             }
+            if (steps % stepsToSpawnBomb == 0) {
+                Game.randomlySpawnBombEnemy();
+            }
+            if (steps % stepsToSpawnSkull == 0) {
+                Game.randomlySpawnSkullEnemy(snakes);
+            }
+            if (steps % stepsToSpawnSimple == 0) {
+                Game.randomlySpawnSimpleEnemy();
+            }
+            if (steps % stepsToSpawnSimplePowerUp == 0) {
+                Game.randomlySpawnSimplePowerUp();
+            }
+            steps++;
 
         }
-
         Globals.getInstance().display.frameFinished();
     }
 
@@ -76,16 +91,6 @@ public class GameLoop {
         }
     }
 
-    public static void gameOver () {
-        ButtonType yes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType no = new ButtonType("No", ButtonBar.ButtonData.NO);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do you want to start a new game?", yes, no);
-        alert.setHeaderText("Game Over");
-        Platform.runLater(() -> {
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == yes) {
-                // RESTART
-            }});
-        Globals.getInstance().stopGame();
+
     }
-}
+

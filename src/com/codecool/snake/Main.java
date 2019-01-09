@@ -14,7 +14,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Menu menu = new Menu(primaryStage);
         menu.menuPopUp();
-
     }
 
     @Override

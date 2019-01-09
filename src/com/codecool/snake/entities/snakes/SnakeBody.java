@@ -4,7 +4,6 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import java.util.LinkedList;
 import java.util.Queue;
-
 import com.sun.javafx.geom.Vec2d;
 
 
@@ -13,11 +12,7 @@ public class SnakeBody extends GameEntity {
     private static final int historySize = 10;
 
     public SnakeBody(Vec2d coord, Snake snake) {
-        if (snake.getPlayerId() == 1) {
-            setImage(Globals.getInstance().getImage("SnakeBody"));
-        } else {
-            setImage(Globals.getInstance().getImage("SnakeBody2"));
-        }
+        setImage(Globals.getInstance().getImage(snake.getBodyImage()));
         setX(coord.x);
         setY(coord.y);
 

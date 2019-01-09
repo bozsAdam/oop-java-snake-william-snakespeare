@@ -19,9 +19,13 @@ public class Menu extends Pane {
 
     private Stage primaryStage;
     private Game game;
+    private int numberOfPlayers;
+
+    public Menu() {}
 
     public Menu(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        System.out.println(primaryStage);
     }
 
     public void menuPopUp () {
@@ -35,9 +39,11 @@ public class Menu extends Pane {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == buttonTypeOne) {
+            numberOfPlayers = 1;
             game = new Game(1);
             setScene(game);
         } else if (result.get() == buttonTypeTwo) {
+            numberOfPlayers = 2;
             game = new Game(2);
             setScene(game);
         } else {
@@ -53,5 +59,19 @@ public class Menu extends Pane {
         game.start();
         }
 
+    public void gameOver () {
+        System.out.println(primaryStage);
+        ButtonType yes = new ButtonType("Quit", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do you want to exit the game? If not press Restart", yes);
+        alert.setHeaderText("Game Over");
 
+        Platform.runLater(() -> {
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == yes) {
+                menuPopUp();
+               // System.exit(0);
+            }
+
+        });
+    }
 }
