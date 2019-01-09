@@ -14,6 +14,8 @@ public class GameLoop {
     private boolean running = false;
     private int steps = 1;
     private int stepsToSpawnBomb = (int) Math.random()*150+150;
+    private int stepsToSpawnSkull = (int) Math.random()*150+150;
+    private int stepsToSpawnSimple = (int) Math.random()*100+50;
 
     public GameLoop(List<Snake> snakes) { this.snakes = snakes; }
 
@@ -48,7 +50,13 @@ public class GameLoop {
                 Globals.getInstance().stopGame();
             }
             if (steps % stepsToSpawnBomb == 0) {
-                Game.randomlySpawnBomb();
+                Game.randomlySpawnBombEnemy();
+            }
+            if (steps % stepsToSpawnSkull == 0) {
+                Game.randomlySpawnSkullEnemy(snakes);
+            }
+            if (steps % stepsToSpawnSimple == 0) {
+                Game.randomlySpawnSimpleEnemy();
             }
             steps++;
 

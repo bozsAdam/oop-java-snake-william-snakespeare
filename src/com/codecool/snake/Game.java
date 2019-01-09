@@ -81,8 +81,16 @@ public class Game extends Pane {
         }
     }
 
-    static void randomlySpawnBomb () {
+    static void randomlySpawnBombEnemy () {
         new BombEnemy();
+    }
+
+    static void randomlySpawnSimpleEnemy () {
+        new SimpleEnemy();
+    }
+
+    static void randomlySpawnSkullEnemy (List<Snake> snakes) {
+        new SkullEnemy(snakes);
     }
 
     private void spawnPowerUps(int numberOfPowerUps) {
