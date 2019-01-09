@@ -15,12 +15,13 @@ import java.util.List;
 import java.util.Random;
 
 
-public class SkullEnemy extends Enemy implements Animatable, Interactable {
+public class SkullEnemy extends Enemy implements Animatable {
 
     private Point2D heading;
     private static Random rnd = new Random();
     private SnakeHead snakeHead;
     private int stepsToDie = 400;
+    private boolean isJustCreated = true;
 
     public SkullEnemy(List<Snake> snakes) {
         super(20);
@@ -46,13 +47,15 @@ public class SkullEnemy extends Enemy implements Animatable, Interactable {
         }
         stepsToDie--;
         if (stepsToDie == 0) destroy();
+        if (super.isJustCreated) {
+            super.isJustCreated = false;
+        }
     }
 
     private Point2D getHeading () {
         double distanceToHeadX = snakeHead.getX()-getX();
         double distanceToHeadY = snakeHead.getY()-getY();
         double directionToHead = (18.25*(Math.PI))*Math.atan(distanceToHeadX/distanceToHeadY);
-        //double directionToHead = 360-45;
         if (snakeHead.getY()-getY() > 0) {
             setRotate(directionToHead);
         } else {
@@ -60,18 +63,5 @@ public class SkullEnemy extends Enemy implements Animatable, Interactable {
         }
         int speed = 1;
         return Utils.directionToVector(directionToHead, speed);
-    }
-
-    @Override
-    public void apply(GameEntity entity) {
-        if(entity instanceof SnakeHead || entity instanceof SnakeLaser){
-            System.out.println(getMessage());
-            destroy();
-        }
-    }
-
-    @Override
-    public String getMessage() {
-        return (getDamage() + " damage");
     }
 }

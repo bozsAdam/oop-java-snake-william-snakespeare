@@ -13,7 +13,7 @@ import javafx.geometry.Point2D;
 
 
 
-public class SimpleEnemy extends Enemy implements Animatable, Interactable {
+public class SimpleEnemy extends Enemy implements Animatable {
 
     private Point2D heading;
     private static Random rnd = new Random();
@@ -39,18 +39,8 @@ public class SimpleEnemy extends Enemy implements Animatable, Interactable {
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
-    }
-
-    @Override
-    public void apply(GameEntity entity) {
-        if(entity instanceof SnakeHead || entity instanceof SnakeLaser){
-            System.out.println(getMessage());
-            destroy();
+        if (super.isJustCreated) {
+            super.isJustCreated = false;
         }
-    }
-
-    @Override
-    public String getMessage() {
-        return (getDamage() + " damage");
     }
 }

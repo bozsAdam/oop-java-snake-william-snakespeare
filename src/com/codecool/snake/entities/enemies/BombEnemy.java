@@ -46,6 +46,9 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
         if (stepsToDie == 0) {
             destroy();
         }
+        if (super.isJustCreated) {
+            super.isJustCreated = false;
+        }
         stepsToExplode--;
     }
 
@@ -59,21 +62,25 @@ public class BombEnemy extends Enemy implements Animatable, Interactable {
 
     @Override
     public void apply(GameEntity entity) {
-        if (!isExploded && !isDamaged) {
-            if (entity instanceof SnakeHead || entity instanceof SnakeLaser) {
-                explode();
-            }
-        } else if (!isDamaged) {
-            if (entity instanceof SnakeHead || entity instanceof SnakeLaser) {
-                System.out.println(getMessage());
-                isDamaged = true;
+            if (!isExploded && !isDamaged) {
+                if (entity instanceof SnakeHead || entity instanceof SnakeLaser) {
+                    if (super.isJustCreated) {
+                        destroy();
+                        new BombEnemy();
+                    } else {
+                    explode();
+                    }
+                }
+            } else if (!isDamaged) {
+                if (entity instanceof SnakeHead || entity instanceof SnakeLaser) {
+                    System.out.println(getMessage());
+                    isDamaged = true;
 
+                }
+            } else {
+                this.setDamage(0);
             }
-        } else {
-            this.setDamage(0);
         }
-
-    }
 
     @Override
     public String getMessage() {
