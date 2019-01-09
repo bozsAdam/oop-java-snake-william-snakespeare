@@ -3,7 +3,7 @@ package com.codecool.snake.entities.snakes;
 import com.codecool.snake.Control;
 import com.codecool.snake.DelayedModificationList;
 import com.codecool.snake.Globals;
-import com.codecool.snake.SnakeImages;
+import com.codecool.snake.PlayerImages;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.eventhandler.InputHandler;
@@ -24,6 +24,7 @@ public class Snake implements Animatable {
     private Integer superChargeDelay = 0;
     private String bodyImage;
     private String headImage;
+    private String laserImage;
 
     public int getPlayerId() {
         return playerId;
@@ -33,13 +34,14 @@ public class Snake implements Animatable {
         return head;
     }
 
-    public Snake(Vec2d position, Control control, SnakeImages snakeImages) {
+    public Snake(Vec2d position, Control control, PlayerImages playerImages) {
         snakeCount ++;
         playerId = snakeCount;
         this.isDead = false;
         this.control = control;
-        this.bodyImage = snakeImages.getBodyImage();
-        this.headImage = snakeImages.getHeadImage();
+        this.bodyImage = playerImages.getBodyImage();
+        this.headImage = playerImages.getHeadImage();
+        this.laserImage = playerImages.getLaserImage();
         head = new SnakeHead(this, position);
         body = new DelayedModificationList<>();
         addPart(4);
@@ -103,7 +105,7 @@ public class Snake implements Animatable {
 
     private void shoot(){
         if(charged){
-            new SnakeLaser(getHead());
+            new SnakeLaser(this);
             charged = false;
             chargeDelay = 0;
         }
@@ -142,4 +144,9 @@ public class Snake implements Animatable {
     public String getHeadImage() {
         return headImage;
     }
+
+    public String getLaserImage() {
+        return laserImage;
+    }
+
 }

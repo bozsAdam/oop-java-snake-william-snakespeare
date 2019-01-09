@@ -14,9 +14,9 @@ public class SnakeLaser extends GameEntity implements Animatable, Interactable {
     private Point2D heading;
     private SnakeHead snakeHead;
 
-    public SnakeLaser(SnakeHead snakeHead) {
-        this.snakeHead = snakeHead;
-        setImage(Globals.getInstance().getImage("SnakeLaser"));
+    public SnakeLaser(Snake snake) {
+        this.snakeHead = snake.getHead();
+        setImage(Globals.getInstance().getImage(snake.getLaserImage()));
         setX(snakeHead.getX());
         setY(snakeHead.getY());
         setRotate(snakeHead.getRotate());
@@ -35,7 +35,7 @@ public class SnakeLaser extends GameEntity implements Animatable, Interactable {
 
     @Override
     public void apply(GameEntity entity) {
-        //if you wold wanna make something happen to this after contacting with an entity than here you can do it}
+        //if you wold wanna make something happen to this after contacting with an entity then here you can do it}
     }
 
     @Override
