@@ -22,7 +22,14 @@ public class Snake implements Animatable {
     private int health = 100;
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
+    private boolean charged = true;
+    private boolean superCharged = false;
+    private Integer chargeDelay = 0;
+    private Integer superChargeDelay = 0;
 
+    public SnakeHead getHead() {
+        return head;
+    }
 
     public Snake(Vec2d position) {
         snakeCount ++;
@@ -48,6 +55,11 @@ public class Snake implements Animatable {
         if (playerId == 1) {
             if (InputHandler.getInstance().isKeyPressed(KeyCode.LEFT)) turnDir = SnakeControl.TURN_LEFT;
             if (InputHandler.getInstance().isKeyPressed(KeyCode.RIGHT)) turnDir = SnakeControl.TURN_RIGHT;
+            if(InputHandler.getInstance().isKeyPressed(KeyCode.SPACE)){
+                shoot();
+            }
+            readyCheck();
+            chargeDelay++;
         } else if (playerId == 2) {
             if (InputHandler.getInstance().isKeyPressed(KeyCode.A)) turnDir = SnakeControl.TURN_LEFT;
             if (InputHandler.getInstance().isKeyPressed(KeyCode.D)) turnDir = SnakeControl.TURN_RIGHT;
@@ -90,5 +102,19 @@ public class Snake implements Animatable {
 
         if(result != null) return result;
         return head;
+    }
+
+    private void shoot(){
+        if(charged){
+            new SnakeLaser(getHead());
+            charged = false;
+            chargeDelay = 0;
+        }
+    }
+
+    private void readyCheck(){
+        if(chargeDelay>100){
+            charged = true;
+        }
     }
 }

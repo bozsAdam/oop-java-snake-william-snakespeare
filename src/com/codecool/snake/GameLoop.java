@@ -10,7 +10,6 @@ import java.util.List;
 
 public class GameLoop {
     private Snake snake;
-    //private Snake snake2;
     private List<Snake> snakes = new ArrayList<>();
     private boolean running = false;
 
@@ -27,7 +26,6 @@ public class GameLoop {
     public void step() {
         if(running) {
             snakes.forEach(Snake::step);
-            //snake2.step();
             for (GameEntity gameObject : Globals.getInstance().display.getObjectList()) {
                 if (gameObject instanceof Animatable) {
                     ((Animatable) gameObject).step();

@@ -3,6 +3,8 @@ package com.codecool.snake;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.SimplePowerUp;
 import com.codecool.snake.entities.snakes.Snake;
+import com.codecool.snake.entities.snakes.SnakeHead;
+import com.codecool.snake.entities.snakes.SnakeLaser;
 import com.codecool.snake.eventhandler.InputHandler;
 
 import com.sun.javafx.geom.Vec2d;
@@ -33,8 +35,8 @@ public class Game extends Pane {
 
     public void init() {
         spawnSnake();
-        spawnEnemies(44);
-        spawnPowerUps(44);
+        spawnEnemies(60);
+        spawnPowerUps(30);
         GameLoop gameLoop = new GameLoop(snakes);
         Globals.getInstance().setGameLoop(gameLoop);
         gameTimer.setup(gameLoop::step);
@@ -50,6 +52,10 @@ public class Game extends Pane {
         for (int i = 0; i < numberOfPlayers; i++) {
             snakes.add(new Snake(new Vec2d(500, 500 + i*-200)));
         }
+    }
+
+    public void spawnLaser(int numberOfLaser,SnakeHead snakeHead) {
+        for(int i = 0; i < numberOfLaser; ++i) new SnakeLaser(snakeHead);
     }
 
     private void spawnEnemies(int numberOfEnemies) {
