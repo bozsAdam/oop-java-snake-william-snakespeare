@@ -3,6 +3,7 @@ package com.codecool.snake.entities.snakes;
 import com.codecool.snake.Control;
 import com.codecool.snake.DelayedModificationList;
 import com.codecool.snake.Globals;
+import com.codecool.snake.SnakeImages;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.eventhandler.InputHandler;
@@ -22,6 +23,7 @@ public class Snake implements Animatable {
     private Integer chargeDelay = 0;
     private Integer superChargeDelay = 0;
     private String bodyImage;
+    private String headImage;
 
     public int getPlayerId() {
         return playerId;
@@ -31,14 +33,15 @@ public class Snake implements Animatable {
         return head;
     }
 
-    public Snake(Vec2d position, Control control, String bodyImage) {
+    public Snake(Vec2d position, Control control, SnakeImages snakeImages) {
         snakeCount ++;
         playerId = snakeCount;
-        head = new SnakeHead(this, position);
-        body = new DelayedModificationList<>();
         this.isDead = false;
         this.control = control;
-        this.bodyImage = bodyImage;
+        this.bodyImage = snakeImages.getBodyImage();
+        this.headImage = snakeImages.getHeadImage();
+        head = new SnakeHead(this, position);
+        body = new DelayedModificationList<>();
         addPart(4);
     }
 
@@ -136,9 +139,7 @@ public class Snake implements Animatable {
         return bodyImage;
     }
 
-    public void setBodyImage(String bodyImage) {
-        this.bodyImage = bodyImage;
+    public String getHeadImage() {
+        return headImage;
     }
-
-
 }

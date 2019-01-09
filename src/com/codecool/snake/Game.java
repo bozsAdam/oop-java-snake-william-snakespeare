@@ -25,7 +25,7 @@ public class Game extends Pane {
     private List<Snake> snakes = new ArrayList<>();
     private GameTimer gameTimer = new GameTimer();
     private Map<String, Control> controls = new HashMap<>();
-    private Map<String, String> snakeBodyImages = new HashMap<>();
+    private Map<String, SnakeImages> snakeImages = new HashMap<>();
 
     public Game(int numberOfPlayers) {
         Globals.getInstance().game = this;
@@ -34,8 +34,8 @@ public class Game extends Pane {
         this.numberOfPlayers = numberOfPlayers;
         controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.K.SPACE));
         controls.put("Player2", new Control(KeyCode.A, KeyCode.D, KeyCode.Q));
-        snakeBodyImages.put("Player1", "SnakeBody");
-        snakeBodyImages.put("Player2", "SnakeBody2");
+        snakeImages.put("Player1", new SnakeImages("SnakeBody","SnakeHead"));
+        snakeImages.put("Player2", new SnakeImages("SnakeBody2", "SnakeHead2"));
         startEventListener();
     }
 
@@ -62,7 +62,7 @@ public class Game extends Pane {
     private void spawnSnake() {
         for (int i = 0; i < numberOfPlayers; i++) {
             String playerId = "Player" + (i + 1);
-            Snake snake = new Snake(new Vec2d(500, 500 + i*-200), controls.get(playerId), snakeBodyImages.get(playerId));
+            Snake snake = new Snake(new Vec2d(500, 500 + i*-200), controls.get(playerId), snakeImages.get(playerId));
             snakes.add(snake);
         }
     }
