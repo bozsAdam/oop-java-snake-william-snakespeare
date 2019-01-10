@@ -35,15 +35,20 @@ public class GameLoop extends Menu {
     public void step() {
         if(running) {
             int deadSnakeCount = 0;
-            for (Snake snake: snakes
-                 ) {
-                if(!snake.isDead()) {
-                    snake.step();
-                } else {
+            for (Snake snake: snakes) {
+                snake.step();
+                if(snake.isDead()) {
                     deadSnakeCount++;
                     snake.destroy();
                 }
             };
+
+            int idx = 0;
+            while(idx < snakes.size()){
+                if(snakes.get(idx).isDead()) snakes.remove(idx);
+                else ++idx;
+            }
+
             //snake2.step();
             for (GameEntity gameObject : Globals.getInstance().display.getObjectList()) {
                 if (gameObject instanceof Animatable) {

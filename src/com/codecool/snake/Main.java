@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    Menu menu = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -13,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Menu menu = new Menu(primaryStage);
+        menu = new Menu(primaryStage);
         menu.menuPopUp();
     }
 

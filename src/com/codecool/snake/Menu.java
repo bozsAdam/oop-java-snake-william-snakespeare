@@ -29,7 +29,9 @@ public class Menu extends Pane {
     }
 
     public void menuPopUp () {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        setVisible(true);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION); // always on top?
         alert.setTitle("Single- or Multiplayer Mode:");
         alert.setHeaderText("Do you want to play alone or with a friend/foe!");
         ButtonType buttonTypeOne = new ButtonType("Single Player");
@@ -49,7 +51,9 @@ public class Menu extends Pane {
         } else {
             System.exit(0);
         }
+        setVisible(false);
     }
+    // object pool
     public void setScene(Game game) {
         Scene mainScene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
         game.createRestartButton(this);
@@ -59,7 +63,7 @@ public class Menu extends Pane {
         game.start();
         }
 
-    public static void gameOver () {
+    public void gameOver () {
         System.out.println(primaryStage);
         ButtonType yes = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
@@ -72,8 +76,9 @@ public class Menu extends Pane {
         Platform.runLater(() -> {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == yes) {
-                Menu menu2 = new Menu();
-                Main.restart(menu2, primaryStage);
+                menuPopUp();
+                //Menu menu2 = new Menu();
+                //Main.restart(menu2, primaryStage);
             }
 
         });
