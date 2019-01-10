@@ -17,7 +17,7 @@ import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
 
 public class Menu extends Pane {
 
-    private Stage primaryStage;
+    private static Stage primaryStage;
     private Game game;
     private int numberOfPlayers;
 
@@ -34,7 +34,7 @@ public class Menu extends Pane {
         alert.setHeaderText("Do you want to play alone or with a friend/foe!");
         ButtonType buttonTypeOne = new ButtonType("Single Player");
         ButtonType buttonTypeTwo = new ButtonType("Two Players");
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType buttonTypeCancel = new ButtonType("Quit", ButtonBar.ButtonData.CANCEL_CLOSE);
         alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -59,19 +59,25 @@ public class Menu extends Pane {
         game.start();
         }
 
-    public void gameOver () {
+    public static void gameOver () {
         System.out.println(primaryStage);
-        ButtonType yes = new ButtonType("Quit", ButtonBar.ButtonData.CANCEL_CLOSE);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do you want to exit the game? If not press Restart", yes);
+        ButtonType yes = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "\"Good friend for Jesus sake forbeare, " +
+                "\nTo dig the dust enclosed here. " +
+                "\nBlessed be the man that spares these stones, " +
+                "\nAnd cursed be he that moves my bones.\"", yes);
         alert.setHeaderText("Game Over");
 
         Platform.runLater(() -> {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == yes) {
-                menuPopUp();
-               // System.exit(0);
+                Menu menu2 = new Menu();
+                Main.restart(menu2, primaryStage);
             }
 
         });
     }
+
+
 }
