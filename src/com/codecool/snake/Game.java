@@ -31,11 +31,12 @@ public class Game extends Pane {
         Globals.getInstance().game = this;
         Globals.getInstance().display = new Display(this);
         Globals.getInstance().setupResources();
+        Globals.getInstance().display.setWallpaper(Globals.getInstance().getImage("background"));
         this.numberOfPlayers = numberOfPlayers;
         controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.K.SPACE));
         controls.put("Player2", new Control(KeyCode.A, KeyCode.D, KeyCode.Q));
-        playerImages.put("Player1", new PlayerImages("SnakeBody","SnakeHead", "SnakeLaser"));
-        playerImages.put("Player2", new PlayerImages("SnakeBody2", "SnakeHead2", "SnakeLaser"));
+        playerImages.put("Player1", new PlayerImages("SnakeBody","SnakeHead", "SnakeLaser1"));
+        playerImages.put("Player2", new PlayerImages("SnakeBody2", "SnakeHead2", "SnakeLaser2"));
         startEventListener();
     }
 

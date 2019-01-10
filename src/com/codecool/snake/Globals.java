@@ -38,7 +38,9 @@ public class Globals {
         resources.addImage("BombEnemy", new Image("bomb_enemy.png"));
         resources.addImage("BombExplosion", new Image("bomb_explosion.png"));
         resources.addImage("PowerUpBerry", new Image("powerup_berry.png"));
-        resources.addImage("SnakeLaser", new Image("laser.png"));
+        resources.addImage("SnakeLaser1", new Image("laser1.png"));
+        resources.addImage("SnakeLaser2", new Image("laser2.png"));
+        resources.addImage("background", new Image("background.png"));
     }
 
     public Image getImage(String name) { return resources.getImage(name); }
