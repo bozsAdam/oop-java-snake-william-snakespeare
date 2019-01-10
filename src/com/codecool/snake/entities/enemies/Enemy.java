@@ -26,7 +26,7 @@ public abstract class Enemy extends GameEntity implements Interactable {
         this.setImage(Globals.getInstance().getImage(image));
         this.imageHeight = Globals.getInstance().getImage(image).getHeight();
         this.imageWidth = Globals.getInstance().getImage(image).getWidth();
-        this.setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
+        this.setX(rnd.nextDouble() * Globals.GAME_WIDTH);
         this.setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
     }
 

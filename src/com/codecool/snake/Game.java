@@ -128,7 +128,7 @@ public class Game extends Pane {
         };
         restartButton.setGraphic(imageView);
         restartButton.setContentDisplay(ContentDisplay.TOP);
-        restartButton.setLayoutX(1100);
+        restartButton.setLayoutX(1250);
         restartButton.setLayoutY(20);
         restartButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

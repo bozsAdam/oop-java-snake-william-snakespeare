@@ -33,7 +33,7 @@ public class Menu extends Pane {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION); // always on top?
         alert.setTitle("Single- or Multiplayer Mode:");
-        alert.setHeaderText("Do you want to play alone or with a friend/foe!");
+        alert.setHeaderText("Do you want to play alone or with a friend/foe?");
         ButtonType buttonTypeOne = new ButtonType("Single Player");
         ButtonType buttonTypeTwo = new ButtonType("Two Players");
         ButtonType buttonTypeCancel = new ButtonType("Quit", ButtonBar.ButtonData.CANCEL_CLOSE);
