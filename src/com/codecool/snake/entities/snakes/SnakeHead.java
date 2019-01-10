@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.GameLoop;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.Utils;
@@ -48,8 +49,11 @@ public class SnakeHead extends GameEntity implements Interactable {
             System.out.println(getMessage());
             snake.addPart(4);
         }
-        if(entity instanceof SnakeBody){
+        if(entity instanceof SnakeBody && !entity.equals(snake.body.getList().get(0)) &&
+                !entity.equals(snake.body.getList().get(1)) &&
+                snake.getStep() > Globals.getInstance().getImage(snake.getBodyImage()).getHeight()/Snake.speed+2){
             System.out.println(getMessage());
+            System.out.println("snakes aint food");
             snake.health = 0;
         }
     }
