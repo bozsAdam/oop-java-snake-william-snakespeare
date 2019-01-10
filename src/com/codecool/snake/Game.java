@@ -32,30 +32,38 @@ public class Game extends Pane {
     private Map<String, PlayerImages> playerImages = new HashMap<>();
 
     public Game(int numberOfPlayers) {
+        InputHandler.getInstance().initialize();
         Globals.getInstance().game = this;
         Globals.getInstance().display = new Display(this);
         Globals.getInstance().setupResources();
+        Globals.getInstance().display.setWallpaper(Globals.getInstance().getImage("background"));
         this.numberOfPlayers = numberOfPlayers;
-        controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.K.SPACE));
-        controls.put("Player2", new Control(KeyCode.A, KeyCode.D, KeyCode.Q));
-        playerImages.put("Player1", new PlayerImages("SnakeBody", "SnakeHead", "SnakeLaser"));
-        playerImages.put("Player2", new PlayerImages("SnakeBody2", "SnakeHead2", "SnakeLaser"));
-        startEventListener();
-    }
 
-    private void startEventListener() {
-        // ha start lett akkor:
         init();
     }
 
+    private void setupControls() {
+        controls.put("Player1", new Control(KeyCode.LEFT, KeyCode.RIGHT, KeyCode.K.SPACE));
+        controls.put("Player2", new Control(KeyCode.A, KeyCode.D, KeyCode.Q));
+    }
+
     public void init() {
+        setupControls();
+        setupPlayerImages();
+
         spawnSnake();
         spawnEnemies(20);
         spawnPowerUps(20);
+
         GameLoop gameLoop = new GameLoop(snakes);
         Globals.getInstance().setGameLoop(gameLoop);
         gameTimer.setup(gameLoop::step);
         gameTimer.play();
+    }
+
+    private void setupPlayerImages() {
+        playerImages.put("Player1", new PlayerImages("SnakeBody", "SnakeHead", "SnakeLaser1"));
+        playerImages.put("Player2", new PlayerImages("SnakeBody2", "SnakeHead2", "SnakeLaser2"));
     }
 
     public void start() {
@@ -121,7 +129,7 @@ public class Game extends Pane {
         };
         restartButton.setGraphic(imageView);
         restartButton.setContentDisplay(ContentDisplay.TOP);
-        restartButton.setLayoutX(1100);
+        restartButton.setLayoutX(1250);
         restartButton.setLayoutY(20);
         restartButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

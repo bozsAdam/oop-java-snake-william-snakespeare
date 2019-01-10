@@ -14,6 +14,7 @@ public class InputHandler {
         return instance;
     }
 
+    public void initialize() {keyStates.clear();}
     public void setKeyPressed(KeyCode key) {
         keyStates.put(key, true);
     }
