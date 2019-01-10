@@ -64,7 +64,6 @@ public class Menu extends Pane {
         }
 
     public void gameOver () {
-        System.out.println(primaryStage);
         ButtonType yes = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "\"Good friend for Jesus sake forbeare, " +
