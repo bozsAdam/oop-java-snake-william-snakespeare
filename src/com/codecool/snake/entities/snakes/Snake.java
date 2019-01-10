@@ -14,10 +14,10 @@ public class Snake implements Animatable {
     private static int snakeCount = 0;
     private Control control;
     private int playerId;
-    private static final float speed = 2;
+    protected static final float speed = 2;
     protected int health;
     private SnakeHead head;
-    private DelayedModificationList<GameEntity> body;
+    protected DelayedModificationList<GameEntity> body;
     private boolean charged = true;
     private boolean superCharged = false;
     private Integer chargeDelay = 0;
@@ -27,6 +27,7 @@ public class Snake implements Animatable {
     private String laserImage;
     double imageHeight;
     double imageWidth;
+    private int step;
 
     public int getPlayerId() {
         return playerId;
@@ -148,5 +149,14 @@ public class Snake implements Animatable {
     public String getLaserImage() {
         return laserImage;
     }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
 
 }

@@ -67,10 +67,19 @@ public class GameLoop extends Menu {
             if (steps % stepsToSpawnSimplePowerUp == 0) {
                 Game.randomlySpawnSimplePowerUp();
             }
+
+            for (Snake snake: snakes) {
+                snake.setStep(steps);
+            }
+
             steps++;
 
         }
         Globals.getInstance().display.frameFinished();
+    }
+
+    public int getSteps() {
+        return steps;
     }
 
     private void checkCollisions() {

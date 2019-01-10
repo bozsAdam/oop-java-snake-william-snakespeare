@@ -4,10 +4,12 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import com.codecool.snake.entities.Interactable;
 import com.sun.javafx.geom.Vec2d;
 
 
-public class SnakeBody extends GameEntity {
+public class SnakeBody extends GameEntity implements Interactable {
     private Queue<Vec2d> history = new LinkedList<>();
     private static final int historySize = 10;
 
@@ -30,5 +32,13 @@ public class SnakeBody extends GameEntity {
     }
 
 
+    @Override
+    public void apply(GameEntity entity) {
 
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
+    }
 }
