@@ -4,14 +4,23 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.snakes.Snake;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class GameLoop {
-    private Snake snake;
-    private List<Snake> snakes = new ArrayList<>();
+public class GameLoop extends Menu {
+    private List<Snake> snakes;
     private boolean running = false;
+    private int steps = 1;
+    private int stepsToSpawnBomb = (int) Math.random()*150+150;
+    private int stepsToSpawnSkull = (int) Math.random()*150+150;
+    private int stepsToSpawnSimple = (int) Math.random()*100+50;
+    private int stepsToSpawnSimplePowerUp = (int) Math.random()*200+500;
 
     public GameLoop(List<Snake> snakes) { this.snakes = snakes; }
 
@@ -25,29 +34,43 @@ public class GameLoop {
 
     public void step() {
         if(running) {
-            int deadSnakeCount = 0;
-            for (Snake snake: snakes
-                 ) {
-                if(!snake.isDead()) {
-                    snake.step();
-                } else {
-                    deadSnakeCount++;
+            for (Snake snake: snakes) {
+                snake.step();
+                if(snake.isDead()) {
                     snake.destroy();
                 }
-            };
-            //snake2.step();
+            }
+            int idx = 0;
+            while(idx < snakes.size()){
+                if(snakes.get(idx).isDead()) snakes.remove(idx);
+                else ++idx;
+            }
+
             for (GameEntity gameObject : Globals.getInstance().display.getObjectList()) {
                 if (gameObject instanceof Animatable) {
                     ((Animatable) gameObject).step();
                 }
             }
             checkCollisions();
-            if(deadSnakeCount == snakes.size()) {
+            if(snakes.size() == 0) {
                 Globals.getInstance().stopGame();
+                gameOver();
             }
+            if (steps % stepsToSpawnBomb == 0) {
+                Game.randomlySpawnBombEnemy();
+            }
+            if (steps % stepsToSpawnSkull == 0) {
+                Game.randomlySpawnSkullEnemy(snakes);
+            }
+            if (steps % stepsToSpawnSimple == 0) {
+                Game.randomlySpawnSimpleEnemy();
+            }
+            if (steps % stepsToSpawnSimplePowerUp == 0) {
+                Game.randomlySpawnSimplePowerUp();
+            }
+            steps++;
 
         }
-
         Globals.getInstance().display.frameFinished();
     }
 
@@ -68,4 +91,7 @@ public class GameLoop {
             }
         }
     }
-}
+
+
+    }
+

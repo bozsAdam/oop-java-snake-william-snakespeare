@@ -57,4 +57,6 @@ public class Display {
         displayPane.getChildren().clear();
         gameObjects.clear();
     }
+
+
 }

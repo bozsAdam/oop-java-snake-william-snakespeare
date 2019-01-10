@@ -2,6 +2,7 @@ package com.codecool.snake.entities.snakes;
 
 import com.codecool.snake.Control;
 import com.codecool.snake.DelayedModificationList;
+import com.codecool.snake.Game;
 import com.codecool.snake.Globals;
 import com.codecool.snake.PlayerImages;
 import com.codecool.snake.entities.Animatable;
@@ -14,10 +15,9 @@ public class Snake implements Animatable {
     private Control control;
     private int playerId;
     private static final float speed = 2;
-    private int health = 100;
+    protected int health;
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
-    private boolean isDead;
     private boolean charged = true;
     private boolean superCharged = false;
     private Integer chargeDelay = 0;
@@ -25,6 +25,8 @@ public class Snake implements Animatable {
     private String bodyImage;
     private String headImage;
     private String laserImage;
+    double imageHeight;
+    double imageWidth;
 
     public int getPlayerId() {
         return playerId;
@@ -37,14 +39,16 @@ public class Snake implements Animatable {
     public Snake(Vec2d position, Control control, PlayerImages playerImages) {
         snakeCount ++;
         playerId = snakeCount;
-        this.isDead = false;
         this.control = control;
         this.bodyImage = playerImages.getBodyImage();
         this.headImage = playerImages.getHeadImage();
         this.laserImage = playerImages.getLaserImage();
+        this.health = 100;
         head = new SnakeHead(this, position);
         body = new DelayedModificationList<>();
         addPart(4);
+        this.imageHeight = Globals.getInstance().getImage(getHeadImage()).getHeight();
+        this.imageWidth = Globals.getInstance().getImage(getHeadImage()).getWidth();
     }
 
     public void step() {
@@ -79,13 +83,13 @@ public class Snake implements Animatable {
     }
 
     public void changeHealth(int diff) {
-        health += diff;
+        health -= diff;
     }
 
     private void checkForSnakeCondition() {
-        if (this.head.isOutOfBounds() || health <= 0) {
+        if (this.head.isOutOfBounds(imageHeight, imageWidth) || health <= 0) {
             System.out.println("Im ded");
-            this.setDead(true);
+            this.health = 0;
         }
     }
 
@@ -117,16 +121,12 @@ public class Snake implements Animatable {
         }
     }
 
-    public void setControl(Control control) {
-        this.control = control;
-    }
-
-    public void setDead(boolean dead) {
-        isDead = dead;
-    }
-
     public boolean isDead() {
-        return isDead;
+        if (this.health <= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void destroy() {

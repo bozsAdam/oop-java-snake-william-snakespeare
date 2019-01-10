@@ -17,9 +17,11 @@ public class DelayedModificationList<T> {
     private List<T> oldObjects = new LinkedList<>();// Holds game objects that will be destroyed this frame.
 
 
+
     public void add(T obj) {
         newObjects.add(obj);
     }
+
 
     public void addAll(List<T> objs) {
         for(T obj : objs) {

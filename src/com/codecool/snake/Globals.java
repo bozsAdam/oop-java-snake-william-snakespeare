@@ -8,7 +8,8 @@ import javafx.scene.layout.Pane;
 public class Globals {
     private static Globals instance = null;
 
-    public static final double WINDOW_WIDTH = 1000;
+    public static final double WINDOW_WIDTH = 1350;
+    public static final double GAME_WIDTH = 1200;
     public static final double WINDOW_HEIGHT = 700;
 
     public Display display;
@@ -41,6 +42,10 @@ public class Globals {
         resources.addImage("SnakeLaser1", new Image("laser1.png"));
         resources.addImage("SnakeLaser2", new Image("laser2.png"));
         resources.addImage("background", new Image("background.png"));
+
+
+        resources.addImage("RestartButton", new Image("restart_button.png"));
+        resources.addImage("SnakeLaser", new Image("laser.png"));
     }
 
     public Image getImage(String name) { return resources.getImage(name); }
