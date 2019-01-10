@@ -52,7 +52,7 @@ public class Game extends Pane {
         setupPlayerImages();
 
         spawnSnake();
-        spawnEnemies(20);
+        spawnEnemies(2);
         spawnPowerUps(20);
 
         GameLoop gameLoop = new GameLoop(snakes);
