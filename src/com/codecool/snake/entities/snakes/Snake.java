@@ -14,7 +14,7 @@ public class Snake implements Animatable {
     private Control control;
     private int playerId;
     private static final float speed = 2;
-    private int health;
+    protected int health;
     private SnakeHead head;
     private DelayedModificationList<GameEntity> body;
     private boolean charged = true;
@@ -82,7 +82,7 @@ public class Snake implements Animatable {
     }
 
     public void changeHealth(int diff) {
-        health += diff;
+        health -= diff;
     }
 
     private void checkForSnakeCondition() {
