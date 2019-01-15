@@ -20,6 +20,8 @@ public class Menu extends Pane {
     private static Stage primaryStage;
     private Game game;
     private int numberOfPlayers;
+    public static int player1Score;
+    public static int player2Score;
 
     public Menu() {}
 
@@ -63,13 +65,16 @@ public class Menu extends Pane {
         game.start();
         }
 
+    public static void adjustScores(Snake snake) {
+        player1Score = snake.getSnake1Score();
+        player2Score = snake.getSnake2Score();
+    }
+
     public void gameOver () {
+
         ButtonType yes = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                "\"Good friend for Jesus sake forbeare, " +
-                "\nTo dig the dust enclosed here. " +
-                "\nBlessed be the man that spares these stones, " +
-                "\nAnd cursed be he that moves my bones.\"", yes);
+                "Player 1's score is: " + player1Score + "\nPlayer 2's score is: " + player2Score, yes);
         alert.setHeaderText("Game Over");
 
         Platform.runLater(() -> {

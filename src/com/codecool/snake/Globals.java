@@ -1,5 +1,6 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.snakes.Snake;
 import com.codecool.snake.resources.Resources;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -50,6 +51,10 @@ public class Globals {
     public void startGame() { gameLoop.start(); }
 
     public void stopGame() { gameLoop.stop(); }
+
+    //public static int getScores() {
+    //    Snake.class.
+    //}
 
     private Globals() {
         // singleton needs the class to have private constructor

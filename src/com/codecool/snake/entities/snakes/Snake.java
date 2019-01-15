@@ -28,10 +28,30 @@ public class Snake implements Animatable {
     double imageHeight;
     double imageWidth;
     private int step;
+    public static int snake1Score;
+    public static int snake2Score;
 
     public int getPlayerId() {
         return playerId;
     }
+
+    public static int getSnake1Score() {
+        return snake1Score;
+    }
+
+    public static int getSnake2Score() {
+        return snake2Score;
+    }
+
+    public void setSnakeScoreBy(int scoreChangeBy) {
+        if (playerId == 1) {
+            this.snake1Score += scoreChangeBy;
+        }
+        else {
+            this.snake1Score += scoreChangeBy;
+        }
+    }
+
 
     public SnakeHead getHead() {
         return head;

@@ -36,6 +36,7 @@ public class GameLoop extends Menu {
         if(running) {
             for (Snake snake: snakes) {
                 snake.step();
+                Menu.adjustScores(snake);
                 if(snake.isDead()) {
                     snake.destroy();
                 }
