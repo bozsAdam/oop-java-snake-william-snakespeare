@@ -5,15 +5,16 @@ import com.codecool.snake.Globals;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.codecool.snake.entities.Interactable;
 import com.sun.javafx.geom.Vec2d;
 
 
-public class SnakeBody extends GameEntity {
+public class SnakeBody extends GameEntity implements Interactable {
     private Queue<Vec2d> history = new LinkedList<>();
     private static final int historySize = 10;
 
-    public SnakeBody(Vec2d coord) {
-        setImage(Globals.getInstance().getImage("SnakeBody"));
+    public SnakeBody(Vec2d coord, Snake snake) {
+        setImage(Globals.getInstance().getImage(snake.getBodyImage()));
         setX(coord.x);
         setY(coord.y);
 
@@ -28,5 +29,16 @@ public class SnakeBody extends GameEntity {
         setX(currentPos.x);
         setY(currentPos.y);
         history.add(pos); // add the parent's current position to the beginning of the history
+    }
+
+
+    @Override
+    public void apply(GameEntity entity) {
+
+    }
+
+    @Override
+    public String getMessage() {
+        return null;
     }
 }

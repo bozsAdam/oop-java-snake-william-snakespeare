@@ -1,5 +1,6 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.snakes.Snake;
 import com.codecool.snake.resources.Resources;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -8,7 +9,8 @@ import javafx.scene.layout.Pane;
 public class Globals {
     private static Globals instance = null;
 
-    public static final double WINDOW_WIDTH = 1000;
+    public static final double WINDOW_WIDTH = 1350;
+    public static final double GAME_WIDTH = 1200;
     public static final double WINDOW_HEIGHT = 700;
 
     public Display display;
@@ -30,9 +32,18 @@ public class Globals {
     public void setupResources() {
         resources = new Resources();
         resources.addImage("SnakeHead", new Image("snake_head.png"));
+        resources.addImage("SnakeHead2", new Image("snake_head2.png"));
         resources.addImage("SnakeBody", new Image("snake_body.png"));
+        resources.addImage("SnakeBody2", new Image("snake_body2.png"));
         resources.addImage("SimpleEnemy", new Image("simple_enemy.png"));
+        resources.addImage("SkullEnemy", new Image("skull_enemy.png"));
+        resources.addImage("BombEnemy", new Image("bomb_enemy.png"));
+        resources.addImage("BombExplosion", new Image("bomb_explosion.png"));
         resources.addImage("PowerUpBerry", new Image("powerup_berry.png"));
+        resources.addImage("SnakeLaser1", new Image("laser1.png"));
+        resources.addImage("SnakeLaser2", new Image("laser2.png"));
+        resources.addImage("background", new Image("background.png"));
+        resources.addImage("RestartButton", new Image("restart_button.png"));
     }
 
     public Image getImage(String name) { return resources.getImage(name); }
@@ -40,6 +51,10 @@ public class Globals {
     public void startGame() { gameLoop.start(); }
 
     public void stopGame() { gameLoop.stop(); }
+
+    //public static int getScores() {
+    //    Snake.class.
+    //}
 
     private Globals() {
         // singleton needs the class to have private constructor

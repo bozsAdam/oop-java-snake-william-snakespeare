@@ -1,5 +1,6 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.GameLoop;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.Globals;
 import com.codecool.snake.Utils;
@@ -17,7 +18,7 @@ public class SnakeHead extends GameEntity implements Interactable {
 
     public SnakeHead(Snake snake, Vec2d position) {
         this.snake = snake;
-        setImage(Globals.getInstance().getImage("SnakeHead"));
+        setImage(Globals.getInstance().getImage(snake.getHeadImage()));
         setPosition(position);
     }
 
@@ -42,11 +43,19 @@ public class SnakeHead extends GameEntity implements Interactable {
     public void apply(GameEntity entity) {
         if(entity instanceof Enemy){
             System.out.println(getMessage());
-            snake.changeHealth(((Enemy) entity).getDamage());
+            if (!((Enemy) entity).isJustCreated()) snake.changeHealth(((Enemy) entity).getDamage());
         }
         if(entity instanceof SimplePowerUp){
             System.out.println(getMessage());
             snake.addPart(4);
+            snake.setSnakeScoreBy(5);
+        }
+        if(entity instanceof SnakeBody && !entity.equals(snake.body.getList().get(0)) &&
+                !entity.equals(snake.body.getList().get(1)) &&
+                snake.getStep() > Globals.getInstance().getImage(snake.getBodyImage()).getHeight()/Snake.speed+2){
+            System.out.println(getMessage());
+            System.out.println("snakes aint food");
+            snake.health = 0;
         }
     }
 

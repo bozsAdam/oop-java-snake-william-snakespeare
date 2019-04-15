@@ -8,21 +8,19 @@ import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import java.util.Random;
 
+import com.codecool.snake.entities.snakes.SnakeLaser;
 import javafx.geometry.Point2D;
 
 
 
-public class SimpleEnemy extends Enemy implements Animatable, Interactable {
+public class SimpleEnemy extends Enemy implements Animatable {
 
     private Point2D heading;
     private static Random rnd = new Random();
+    private static String image = "SimpleEnemy";
 
     public SimpleEnemy() {
-        super(10);
-
-        setImage(Globals.getInstance().getImage("SimpleEnemy"));
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
+        super(10, image);
 
         double direction = rnd.nextDouble() * 360;
         setRotate(direction);
@@ -33,23 +31,13 @@ public class SimpleEnemy extends Enemy implements Animatable, Interactable {
 
     @Override
     public void step() {
-        if (isOutOfBounds()) {
+        if (isOutOfBounds(super.imageHeight, super.imageWidth)) {
             destroy();
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
-    }
-
-    @Override
-    public void apply(GameEntity entity) {
-        if(entity instanceof SnakeHead){
-            System.out.println(getMessage());
-            destroy();
+        if (super.isJustCreated) {
+            super.isJustCreated = false;
         }
-    }
-
-    @Override
-    public String getMessage() {
-        return (getDamage() + " damage");
     }
 }

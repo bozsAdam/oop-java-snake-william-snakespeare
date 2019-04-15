@@ -6,24 +6,26 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    Menu menu = null;
+
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        Game game = new Game();
-        Scene mainScene = new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT);
-
-        primaryStage.setTitle("Snake Game");
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-
-        game.start();
+        menu = new Menu(primaryStage);
+        menu.menuPopUp();
     }
 
     @Override
     public void stop() throws Exception {
         System.out.println("Exiting..");
     }
+
+
+    public static void restart(Menu menu, Stage primaryStage) {
+        menu.menuPopUp();
+    }
 }
+

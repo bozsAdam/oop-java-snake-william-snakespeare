@@ -1,6 +1,7 @@
 package com.codecool.snake;
 
 import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCode;
 
 public class Utils {
 
@@ -13,4 +14,6 @@ public class Utils {
         Point2D heading = new Point2D(length * Math.sin(directionInRadians), - length * Math.cos(directionInRadians));
         return heading;
     }
+
+
 }
